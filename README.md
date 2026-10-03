@@ -23,19 +23,18 @@
 
 ### 1.2 데이터 전처리
 
-다음 순서로 sEMG 신호를 전처리했습니다.
 
-1. **60 Hz Notch Filter**를 적용하여 전원선 잡음을 제거했습니다.
-2. **20~499 Hz Band-pass Filter**를 적용했습니다.
-3. 신호를 **300 ms window / 150 ms hop**으로 분할했습니다.
-   - 하나의 3초 시행에서 19개의 window가 생성됩니다.
-4. 각 window에 **Min-Max Normalization**을 적용했습니다.
-5. **CWT(Continuous Wavelet Transform)**를 적용했습니다.
+1. **60 Hz Notch Filter**를 적용하여 전원선 잡음을 제거
+2. **20~499 Hz Band-pass Filter**를 적용
+3. 신호를 **300 ms window / 150 ms hop**으로 분할
+   - 하나의 3초 시행에서 19개의 window가 생성
+4. 각 window에 **Min-Max Normalization**을 적용
+5. **CWT(Continuous Wavelet Transform)**를 적용
    - Wavelet: Morlet (`morl`)
    - Scale: 1~32
-   - 두 sEMG 채널과 두 채널의 평균 map을 이용하여 최종 입력 크기를 `(3, 32, 300)`으로 구성했습니다.
+   - 두 sEMG 채널과 두 채널의 평균 map을 이용하여 최종 입력 크기를 `(3, 32, 300)`으로 구성
 
-데이터 누수를 방지하기 위해 window를 생성하기 전에 **CSV 시행 단위로 Train/Validation/Test를 분리**했습니다.
+데이터 누수를 방지하기 위해 window를 생성하기 전에 **CSV 시행 단위로 Train/Validation/Test를 분리**
 
 - Train: 160 trials → 3,040 windows
 - Validation: 40 trials → 760 windows
@@ -43,13 +42,12 @@
 
 ### 1.3 사용 모델
 
-세 모델을 동일한 데이터 분할과 학습 조건에서 비교했습니다.
-
+세 모델을 동일한 데이터 분할과 학습 조건에서 비교
 - 2D CNN
 - ResNet18
 - DenseNet161
 
-ResNet18과 DenseNet161은 사전학습 가중치를 사용하지 않고 학습했습니다.
+ResNet18과 DenseNet161은 사전학습 가중치를 사용하지 않고 학습
 
 ### 1.4 학습 조건
 
@@ -68,13 +66,13 @@ ResNet18과 DenseNet161은 사전학습 가중치를 사용하지 않고 학습�
 
 ### 1.5 실행 방법
 
-Google Colab에서 아래 노트북을 위에서부터 순서대로 실행합니다.
+Google Colab에서 아래 노트북을 위에서부터 순서대로 실행
 
 ```text
 notebooks/semg_model_comparison.ipynb
 ```
 
-노트북 실행 과정에서 데이터 다운로드, 전처리, 모델 학습, 테스트 평가, Confusion Matrix 생성까지 수행합니다.
+노트북 실행 과정에서 데이터 다운로드, 전처리, 모델 학습, 테스트 평가, Confusion Matrix 생성까지 수행
 
 ### 1.6 코드 파일 설명
 
@@ -89,7 +87,7 @@ notebooks/semg_model_comparison.ipynb
 
 ## 2. 모델 성능 비교
 
-동일한 Train/Validation/Test 분할과 학습 조건을 적용하여 세 모델의 성능을 비교했습니다.
+동일한 Train/Validation/Test 분할과 학습 조건을 적용하여 세 모델의 성능을 비교
 
 | Model | Accuracy | Precision | Recall | F1-score |
 | --- | ---: | ---: | ---: | ---: |
@@ -97,7 +95,7 @@ notebooks/semg_model_comparison.ipynb
 | ResNet18 | **90.95%** | **[추가 계산 필요]** | **90.95%** | **90.92%** |
 | DenseNet161 | **86.74%** | **87.31%** | **86.74%** | **86.66%** |
 
-> Test set은 각 클래스가 190개씩 동일하게 구성되어 있어 Macro Recall과 전체 Accuracy가 동일하게 계산됩니다.
+> Test set은 각 클래스가 190개씩 동일하게 구성되어 있어 Macro Recall과 전체 Accuracy가 동일하게 계산
 
 ### 성능 분석
 
