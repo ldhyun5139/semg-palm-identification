@@ -218,3 +218,19 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+##########
+
+# Project data
+data/
+
+# Model weights
+*.pth
+*.pt
+
+# Training outputs
+outputs/
+
+# OS
+.DS_Store
+Thumbs.db
