@@ -3,6 +3,23 @@
 손바닥 sEMG(surface Electromyography) 신호를 이용하여 5명의 사용자를 식별하는 딥러닝 분류 프로젝트입니다.  
 2채널 sEMG 신호를 전처리한 뒤 CWT(Continuous Wavelet Transform)를 적용해 시간-주파수 특징으로 변환하고, **2D CNN, ResNet18, DenseNet161** 세 모델의 성능을 비교했습니다.
 
+교차 검증 결과: DenseNet161 5-Fold Cross Validation
+
+CSV 시행 단위로 Stratified 5-Fold Cross Validation을 수행했습니다.
+
+| Fold | Accuracy |
+| --- | ---: |
+| Fold 1 | 89.58% |
+| Fold 2 | 89.26% |
+| Fold 3 | 91.58% |
+| Fold 4 | 92.95% |
+| Fold 5 | 92.00% |
+
+- Mean Accuracy: **91.07 ± 1.42%**
+- Mean Macro F1: **91.03 ± 1.44%**
+
+
+
 ---
 
 ## 1. 코드 설명
